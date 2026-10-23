@@ -61,7 +61,7 @@ footer{text-align:center;padding:1.5rem;color:var(--m);font-size:.75rem}
 .st img{width:100%;height:auto;border-radius:14px;display:block;transition:transform .35s ease,box-shadow .35s ease;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .st:hover img{transform:translateY(-8px);box-shadow:0 18px 40px rgba(0,212,255,.18)}
 .stn{font-size:2.4rem;font-weight:800;color:var(--a);margin:.8rem 0 .2rem;text-shadow:0 0 18px rgba(0,212,255,.45)}
-.st h3{font-size:1rem;margin-bottom:.35rem}.st p{color:var(--m);font-size:.88rem;line-height:1.5;max-width:300px;margin:0 auto}
+.st h3{font-size:1rem;margin:1rem 0 .35rem}.st p{color:var(--m);font-size:.88rem;line-height:1.5;max-width:300px;margin:0 auto}
 .dots{display:none;justify-content:center;gap:8px;margin-top:1rem}.dots i{width:8px;height:8px;border-radius:50%;background:var(--m);opacity:.4}.dots i.on{background:var(--a);opacity:1}
 @media(max-width:680px){.steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:1rem;padding-bottom:.4rem;scrollbar-width:none}.steps::-webkit-scrollbar{display:none}.st{flex:0 0 82%;scroll-snap-align:center}.dots{display:flex}}
 @media(prefers-reduced-motion:reduce){.st{opacity:1;transform:none;transition:none}.st img{transition:none}.st:hover img{transform:none}}
@@ -109,9 +109,9 @@ footer{text-align:center;padding:1.5rem;color:var(--m);font-size:.75rem}
 <sec id="jak">
   <h2 data-k="jak" style="text-align:center">Jak to działa</h2>
   <div class="steps">
-    <div class="st"><img src="img/krok1.webp" width="1080" height="1620" loading="lazy" decoding="async" alt="Ekran aplikacji: kadrowanie zdjęcia rysunku technicznego" data-ka="s1a"><div class="stn">01</div><h3 data-k="s1t">Zrób zdjęcie rysunku</h3><p data-k="s1d">Sfotografuj rysunek techniczny lub wczytaj plik, potem wykadruj i wyprostuj.</p></div>
-    <div class="st"><img src="img/krok2.webp" width="1080" height="1620" loading="lazy" decoding="async" alt="Ekran aplikacji: hologram 3D ramy z wymiarami na stole spawalniczym" data-ka="s2a"><div class="stn">02</div><h3 data-k="s2t">Program stworzy projekt 3D</h3><p data-k="s2d">Aplikacja odczyta wymiary i profile, a następnie zbuduje model 3D na Twoim stole.</p></div>
-    <div class="st"><img src="img/krok3.webp" width="1080" height="1620" loading="lazy" decoding="async" alt="Ekran aplikacji: podgląd modelu i przycisk Zobacz w AR" data-ka="s3a"><div class="stn">03</div><h3 data-k="s3t">Włącz AR i przyspiesz pracę</h3><p data-k="s3d">Zobacz model w skali 1:1 na telefonie lub tablecie i pracuj szybciej.</p></div>
+    <div class="st"><img src="img/krok1.webp" width="1080" height="1620" loading="eager" alt="Ekran aplikacji: kadrowanie zdjęcia rysunku technicznego" data-ka="s1a"><h3 data-k="s1t">Zrób zdjęcie rysunku</h3><p data-k="s1d">Sfotografuj rysunek techniczny lub wczytaj plik, potem wykadruj i wyprostuj.</p></div>
+    <div class="st"><img src="img/krok2.webp" width="1080" height="1620" loading="eager" alt="Ekran aplikacji: hologram 3D ramy z wymiarami na stole spawalniczym" data-ka="s2a"><h3 data-k="s2t">Program stworzy projekt 3D</h3><p data-k="s2d">Aplikacja odczyta wymiary i profile, a następnie zbuduje model 3D na Twoim stole.</p></div>
+    <div class="st"><img src="img/krok3.webp" width="1080" height="1620" loading="eager" alt="Ekran aplikacji: podgląd modelu i przycisk Zobacz w AR" data-ka="s3a"><h3 data-k="s3t">Włącz AR i przyspiesz pracę</h3><p data-k="s3d">Zobacz model w skali 1:1 na telefonie lub tablecie i pracuj szybciej.</p></div>
   </div>
   <div class="dots"><i class="on"></i><i></i><i></i></div>
 </sec>
