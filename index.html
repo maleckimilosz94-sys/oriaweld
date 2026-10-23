@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ORIAWELD SI</title>
 <style>
 :root{--bg:#0c0c0c;--fg:#f0f0f0;--m:#999;--a:#00d4ff;--c:#141414}
@@ -65,6 +65,36 @@ footer{text-align:center;padding:1.5rem;color:var(--m);font-size:.75rem}
 .dots{display:none;justify-content:center;gap:8px;margin-top:1rem}.dots i{width:8px;height:8px;border-radius:50%;background:var(--m);opacity:.4}.dots i.on{background:var(--a);opacity:1}
 @media(max-width:680px){.steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:1rem;padding-bottom:.4rem;scrollbar-width:none}.steps::-webkit-scrollbar{display:none}.st{flex:0 0 82%;scroll-snap-align:center}.dots{display:flex}}
 @media(prefers-reduced-motion:reduce){.st{opacity:1;transform:none;transition:none}.st img{transition:none}.st:hover img{transform:none}}
+</style>
+<style>
+@media(pointer:coarse){.ctrl button{min-width:40px;min-height:40px}}
+/* mobile polish (<=680px only; desktop untouched) */
+@media(max-width:680px){
+html,body{overflow-x:hidden}
+header{padding:calc(.45rem + env(safe-area-inset-top)) calc(.9rem + env(safe-area-inset-right)) .45rem calc(.9rem + env(safe-area-inset-left))}
+.logo{font-size:1.1rem;white-space:nowrap}
+.ctrl{gap:4px;flex-shrink:0}
+.ctrl button{min-width:40px;min-height:40px;padding:0 6px;font-size:.8rem;border-radius:6px}
+.txt{padding:calc(4.6rem + env(safe-area-inset-top)) calc(1.1rem + env(safe-area-inset-right)) 2.5rem calc(1.1rem + env(safe-area-inset-left))}
+h1{font-size:clamp(1.8rem,8.4vw,2.2rem);line-height:1.1;overflow-wrap:break-word}
+.kick{font-size:.75rem}.lead{font-size:1rem}
+.rot{min-height:17.5rem;margin:.6rem auto 1.4rem}
+.rot h4{font-size:.95rem;letter-spacing:1.5px;line-height:1.5}
+.rot p{font-size:15px;line-height:1.75;letter-spacing:0;overflow-wrap:break-word}
+.btn{font-size:1rem;padding:.8rem 1.5rem;margin:12px}
+sec,.center{padding:3rem calc(1.2rem + env(safe-area-inset-right)) 3rem calc(1.2rem + env(safe-area-inset-left))}
+h2{font-size:1.4rem}
+.row{grid-template-columns:1fr}
+.box p,.center p{font-size:1rem}
+.steps{margin:1.4rem -1.2rem 0;padding:0 1.2rem .4rem;scroll-padding:0 1.2rem}
+.st{flex:0 0 84%}
+.st h3{font-size:1.1rem}.st p{font-size:1rem}
+.dots i{width:10px;height:10px}
+#kontakt a{overflow-wrap:anywhere;display:inline-block;max-width:100%;font-size:1.1rem;padding:.4rem 0}
+#soonOv{padding:1.5rem calc(1.5rem + env(safe-area-inset-right)) calc(1.5rem + env(safe-area-inset-bottom)) calc(1.5rem + env(safe-area-inset-left));text-align:center}
+footer{font-size:15px;padding:1.5rem 1rem calc(1.5rem + env(safe-area-inset-bottom))}
+footer a{display:inline-block;padding:.5rem .2rem}
+}
 </style>
 </head>
 <body data-t="dark">
