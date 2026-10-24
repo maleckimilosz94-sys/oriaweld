@@ -236,10 +236,40 @@ header,header.sc{background:rgba(11,13,20,.86)}
 .btn:active,.pws:active,.rar:active,.ctrl button:active{transform:scale(.97)}
 footer{color:#9aa4b4;border-top-color:var(--line)}[data-t="light"] footer{color:var(--m)}
 @media(prefers-reduced-motion:reduce){#jak.k3 .st:hover,.tech:hover{transform:none}}
+
+/* ===== ekran startowy (splash) ===== */
+#spl{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,rgba(34,211,238,.10),transparent 60%),linear-gradient(rgba(154,164,180,.06) 1px,transparent 1px) 0 0/40px 40px,linear-gradient(90deg,rgba(154,164,180,.06) 1px,transparent 1px) 0 0/40px 40px,var(--bg);color:var(--fg);transition:opacity .6s var(--ease,ease),transform .6s var(--ease,ease);padding:1.5rem;box-sizing:border-box}
+#spl[hidden]{display:none}
+#spl .sbox{display:flex;flex-direction:column;align-items:center;gap:2rem;max-width:100%;text-align:center}
+#spl .slogo{font-family:Michroma,sans-serif;font-weight:400;font-size:clamp(1.6rem,8vw,4.2rem);letter-spacing:.18em;line-height:1.1;margin:0;color:var(--fg);white-space:nowrap}
+#spl .slogo sup{font-size:.32em;letter-spacing:.1em;color:var(--a);vertical-align:top;margin-left:.3em}
+#spl .slogo img{display:block;width:min(80vw,560px);height:auto}
+#spl .sline{width:min(60vw,320px);height:1px;background:linear-gradient(90deg,transparent,var(--a),var(--v),transparent)}
+#spl .slang{display:flex;gap:.5rem}
+#spl .slang button{min-width:56px;min-height:44px;border-radius:10px;border:1px solid var(--bd);background:var(--c);color:var(--m);font:600 .85rem var(--mono);letter-spacing:.12em;cursor:pointer}
+#spl .slang button[aria-pressed="true"]{border-color:var(--bd-a);color:var(--a);box-shadow:0 0 0 1px var(--bd-a) inset}
+#spl .sgo{min-height:48px;min-width:180px;padding:0 2rem;border-radius:12px;border:1px solid var(--bd-a);background:rgba(16,20,29,.8);color:var(--fg);font:600 1rem Inter,sans-serif;letter-spacing:.06em;cursor:pointer}
+[data-t="light"] #spl .sgo{background:var(--bg2)}
+#spl button:focus-visible{outline:2px solid var(--a);outline-offset:3px}
+#spl.out{opacity:0;transform:scale(1.08);pointer-events:none}
+html.spl-on,html.spl-on body{overflow:hidden}
+@media (prefers-reduced-motion:reduce){#spl{transition:opacity .3s}#spl.out{transform:none}}
 </style>
 <link rel="preload" href="fonts/michroma.woff" as="font" type="font/woff" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body data-t="dark">
+<!-- Ekran startowy. Logo: aby podmienic na SVG Grafiki, ustaw SPLASH_LOGO='img/logo_splash.svg' w skrypcie ponizej. -->
+<div id="spl" role="dialog" aria-modal="true" aria-labelledby="splT" hidden>
+ <div class="sbox">
+  <div class="slogo" id="splT">ORIAWELD<sup>SI</sup></div>
+  <div class="sline" aria-hidden="true"></div>
+  <div class="slang" role="group" aria-label="Język / Language / Sprache">
+   <button type="button" data-l="pl" lang="pl">PL</button><button type="button" data-l="en" lang="en">EN</button><button type="button" data-l="de" lang="de">DE</button>
+  </div>
+  <button type="button" class="sgo" id="splGo">Wejście</button>
+ </div>
+</div>
+<script>(function(){var s=0;try{s=sessionStorage.getItem('ow_in')}catch(e){}if(!s){document.documentElement.classList.add('spl-on');document.getElementById('spl').hidden=false}})();</script>
 <header>
   <div class="logo">ORIAWELD<span>SI</span></div>
   <nav><a href="#jak" data-k="jak">Jak to działa</a><a href="#tech" data-k="tech">Bezpieczeństwo i technologia</a><a href="#kontakt" data-k="kon">Kontakt</a></nav>
@@ -383,6 +413,25 @@ setTimeout(()=>document.querySelectorAll('.rv,.st').forEach(x=>x.classList.add('
 addEventListener('scroll',()=>document.querySelector('header').classList.toggle('sc',scrollY>20),{passive:true});
 
 (function(){let l=null;try{l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('ow_lang')}catch(e){}if(D[l]&&l!=='pl')L(l)})();
+</script>
+<script>
+(function(){
+var SPLASH_LOGO=null; /* np. 'img/logo_splash.svg' */
+var sp=document.getElementById('spl');if(!sp||sp.hidden)return;
+var T={pl:'Wejście',en:'Enter',de:'Eintreten'},go=document.getElementById('splGo'),bs=sp.querySelectorAll('.slang button');
+if(SPLASH_LOGO){var h=document.getElementById('splT');h.innerHTML='<img src="'+SPLASH_LOGO+'" alt="ORIAWELD SI">';}
+var sib=[].slice.call(document.body.children).filter(function(e){return e!==sp&&e.tagName!=='SCRIPT'});
+sib.forEach(function(e){e.inert=true;e.setAttribute('aria-hidden','true')});
+var l='pl';try{l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('ow_lang')||'pl'}catch(e){}if(!T[l])l='pl';
+function pick(n){l=n;bs.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===n?'true':'false')});go.textContent=T[n];go.lang=n;}
+bs.forEach(function(b){b.addEventListener('click',function(){pick(b.dataset.l);go.focus()})});pick(l);
+var done=0;function enter(){if(done)return;done=1;try{sessionStorage.setItem('ow_in','1')}catch(e){}if(typeof L==='function')L(l);
+sib.forEach(function(e){e.inert=false;e.removeAttribute('aria-hidden')});document.documentElement.classList.remove('spl-on');sp.classList.add('out');
+var fin=function(){sp.hidden=true;sp.remove()};sp.addEventListener('transitionend',fin,{once:true});setTimeout(fin,900);}
+go.addEventListener('click',enter);
+document.addEventListener("keydown",function(e){if(!done&&e.key==="Enter"&&!(e.target.closest&&e.target.closest(".slang"))){e.preventDefault();enter()}});
+go.focus();
+})();
 </script>
 </body>
 </html>
