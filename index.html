@@ -254,19 +254,62 @@ footer{color:#9aa4b4;border-top-color:var(--line)}[data-t="light"] footer{color:
 #spl.out{opacity:0;transform:scale(1.08);pointer-events:none}
 html.spl-on,html.spl-on body{overflow:hidden}
 @media (prefers-reduced-motion:reduce){#spl{transition:opacity .3s}#spl.out{transform:none}}
+
+/* splash v2 wg Grafiki (splash.md) */
+#spl{perspective:700px;overflow:hidden;background:radial-gradient(90% 55% at 50% 38%,rgba(34,211,238,.07),transparent 65%),var(--bg)}
+#spl .sfl{position:absolute;left:-60%;right:-60%;bottom:-30%;height:85%;transform-origin:50% 100%;transform:rotateX(66deg);background-image:linear-gradient(rgba(148,163,184,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.18) 1px,transparent 1px);background-size:48px 48px;-webkit-mask:linear-gradient(0deg,#000 20%,transparent 92%);mask:linear-gradient(0deg,#000 20%,transparent 92%);animation:sflo .6s var(--ease,ease) both;pointer-events:none}
+#spl .shz{position:absolute;left:0;right:0;top:74%;height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.35),transparent);animation:sfad .6s .2s var(--ease,ease) both;pointer-events:none}
+#spl .sbox{position:relative;z-index:1}
+#spl .slogo{transition:opacity .2s}
+#spl.wait .slogo{opacity:0}
+#spl .slogo svg{display:block;width:min(84vw,680px);height:auto;overflow:visible}
+#spl.svg .sline{display:none}
+#spl .slogo .lg{stroke:#e3e8ef;stroke-width:.6;stroke-dasharray:900;stroke-dashoffset:900;fill-opacity:0;animation:sdrw .9s .25s var(--ease,ease) forwards,sfil .45s 1s var(--ease,ease) forwards}
+#spl .slogo .si,#spl .slogo .si-box{opacity:0;animation:sfad .3s 1.15s var(--ease,ease) forwards}
+#spl .slogo .ul{transform-box:fill-box;transform-origin:50% 50%;transform:scaleX(0);animation:sul .5s 1.05s var(--ease,ease) forwards}
+[data-t="light"] #spl .slogo .lg{fill:var(--fg);stroke:var(--fg)}
+[data-t="light"] #spl .slogo .si{fill:var(--a)}
+[data-t="light"] #spl .slogo .si-box{stroke:var(--a)}
+[data-t="light"] #spl .sfl{background-image:linear-gradient(rgba(10,20,30,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(10,20,30,.12) 1px,transparent 1px)}
+#spl .sin{opacity:0;animation:sup .45s var(--ease,ease) forwards}#spl .slang.sin{animation-delay:1.35s}#spl .sgo.sin{animation-delay:1.45s}
+#spl .sgo{border-radius:999px;min-width:240px;height:52px;font:400 13px/1 Michroma,sans-serif;letter-spacing:.16em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:.75rem;transition:border-color .2s,background .2s,transform .12s}
+#spl .sgo svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#spl .sgo:hover{border-color:var(--a)}#spl .sgo:active{transform:scale(.97)}
+#spl .slang{padding:4px;border:1px solid var(--bd);border-radius:999px;background:var(--c)}
+#spl .slang button{border-radius:999px;border-color:transparent;background:transparent}
+#spl.out{transform:none;transition:opacity .4s .15s var(--ease,ease)}
+#spl.out .sbox{transform:translate3d(0,-28vh,-120px) scale(.35);opacity:0;transition:transform .5s var(--ease,ease),opacity .4s .1s var(--ease,ease)}
+@keyframes sflo{from{transform:rotateX(80deg) translateY(30%);opacity:0}}@keyframes sfad{from{opacity:0}to{opacity:1}}@keyframes sdrw{to{stroke-dashoffset:0}}@keyframes sfil{to{fill-opacity:1;stroke-width:0}}@keyframes sul{to{transform:scaleX(1)}}@keyframes sup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#spl *{animation:none!important}#spl .slogo .lg{stroke-dashoffset:0;fill-opacity:1;stroke-width:0}#spl .slogo .ul{transform:none}#spl .sin,#spl .slogo .si,#spl .slogo .si-box{opacity:1}#spl.out .sbox{transform:none;transition:opacity .3s}#spl.out{transition:opacity .3s}}
+
+/* splash v3: fiolet SI + glebia */
+#spl{background:radial-gradient(120% 80% at 50% 40%,transparent 40%,rgba(0,0,0,.55) 100%),radial-gradient(60% 40% at 50% 40%,rgba(139,92,246,.10),transparent 70%),radial-gradient(90% 55% at 50% 38%,rgba(34,211,238,.06),transparent 65%),linear-gradient(180deg,#0e1220,var(--bg) 60%)}
+[data-t="light"] #spl{background:radial-gradient(120% 80% at 50% 40%,transparent 45%,rgba(20,30,60,.10) 100%),radial-gradient(60% 40% at 50% 40%,rgba(109,40,217,.08),transparent 70%),var(--bg)}
+#spl .slogo{transform-style:preserve-3d;animation:srise .9s .05s var(--ease,ease) both}
+#spl .stilt{transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out;will-change:transform}
+#spl .slogo svg{filter:drop-shadow(0 1px 0 rgba(255,255,255,.08)) drop-shadow(0 2px 0 rgba(10,14,24,.9)) drop-shadow(0 4px 0 rgba(10,14,24,.7)) drop-shadow(0 18px 28px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(139,92,246,.18))}
+[data-t="light"] #spl .slogo svg{filter:drop-shadow(0 2px 0 rgba(20,30,60,.12)) drop-shadow(0 14px 22px rgba(20,30,60,.18))}
+#spl .slogo .ul{transform-origin:0 50%;animation:sul .6s 1.05s var(--ease,ease) forwards}
+#spl .slogo .si,#spl .slogo .si-box{animation:sfad .3s 1.15s var(--ease,ease) forwards,spls 3.2s 1.6s ease-in-out infinite}
+[data-t="light"] #spl .slogo .si{fill:#6d28d9}[data-t="light"] #spl .slogo .si-box{stroke:#6d28d9}
+#spl .sline{background:#8b5cf6;transform-origin:0 50%;animation:sul .6s 1.05s var(--ease,ease) both;transform:scaleX(0)}
+@keyframes srise{from{opacity:0;transform:translateY(18px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+@keyframes spls{0%,100%{opacity:1}50%{opacity:.62}}
+@media (prefers-reduced-motion:reduce){#spl .sline{transform:none}#spl .stilt{transform:none!important}}
 </style>
 <link rel="preload" href="fonts/michroma.woff" as="font" type="font/woff" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body data-t="dark">
 <!-- Ekran startowy. Logo: aby podmienic na SVG Grafiki, ustaw SPLASH_LOGO='img/logo_splash.svg' w skrypcie ponizej. -->
-<div id="spl" role="dialog" aria-modal="true" aria-labelledby="splT" hidden>
- <div class="sbox">
+<div id="spl" class="wait" role="dialog" aria-modal="true" aria-labelledby="splT" hidden>
+ <div class="sfl" aria-hidden="true"></div><div class="shz" aria-hidden="true"></div>
+ <div class="sbox"><div class="stilt">
   <div class="slogo" id="splT">ORIAWELD<sup>SI</sup></div>
-  <div class="sline" aria-hidden="true"></div>
-  <div class="slang" role="group" aria-label="Język / Language / Sprache">
+  <div class="sline" aria-hidden="true"></div></div>
+  <div class="slang sin" role="group" aria-label="Język / Language / Sprache">
    <button type="button" data-l="pl" lang="pl">PL</button><button type="button" data-l="en" lang="en">EN</button><button type="button" data-l="de" lang="de">DE</button>
   </div>
-  <button type="button" class="sgo" id="splGo">Wejście</button>
+  <button type="button" class="sgo sin" id="splGo"><span id="splGt">Wejście</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
  </div>
 </div>
 <script>(function(){var s=0;try{s=sessionStorage.getItem('ow_in')}catch(e){}if(!s){document.documentElement.classList.add('spl-on');document.getElementById('spl').hidden=false}})();</script>
@@ -416,19 +459,21 @@ addEventListener('scroll',()=>document.querySelector('header').classList.toggle(
 </script>
 <script>
 (function(){
-var SPLASH_LOGO=null; /* np. 'img/logo_splash.svg' */
+var SPLASH_LOGO='img/logo_splash.svg'; /* null = wordmark z fontu */
 var sp=document.getElementById('spl');if(!sp||sp.hidden)return;
 var T={pl:'Wejście',en:'Enter',de:'Eintreten'},go=document.getElementById('splGo'),bs=sp.querySelectorAll('.slang button');
-if(SPLASH_LOGO){var h=document.getElementById('splT');h.innerHTML='<img src="'+SPLASH_LOGO+'" alt="ORIAWELD SI">';}
+var show=function(){sp.classList.remove('wait')};
+if(SPLASH_LOGO&&window.fetch){var h=document.getElementById('splT');var tm=setTimeout(show,700);fetch(SPLASH_LOGO).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){if(t.indexOf('<svg')<0)throw 0;h.innerHTML=t;var v=h.querySelector('svg');v.setAttribute('role','img');v.setAttribute('aria-label','ORIAWELD SI');v.removeAttribute('width');v.removeAttribute('height');sp.classList.add('svg')}).catch(function(){}).then(function(){clearTimeout(tm);show()})}else show();
 var sib=[].slice.call(document.body.children).filter(function(e){return e!==sp&&e.tagName!=='SCRIPT'});
 sib.forEach(function(e){e.inert=true;e.setAttribute('aria-hidden','true')});
 var l='pl';try{l=new URLSearchParams(location.search).get('lang')||localStorage.getItem('ow_lang')||'pl'}catch(e){}if(!T[l])l='pl';
-function pick(n){l=n;bs.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===n?'true':'false')});go.textContent=T[n];go.lang=n;}
+function pick(n){l=n;bs.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===n?'true':'false')});document.getElementById('splGt').textContent=T[n];go.lang=n;document.documentElement.lang=n;}
 bs.forEach(function(b){b.addEventListener('click',function(){pick(b.dataset.l);go.focus()})});pick(l);
 var done=0;function enter(){if(done)return;done=1;try{sessionStorage.setItem('ow_in','1')}catch(e){}if(typeof L==='function')L(l);
 sib.forEach(function(e){e.inert=false;e.removeAttribute('aria-hidden')});document.documentElement.classList.remove('spl-on');sp.classList.add('out');
-var fin=function(){sp.hidden=true;sp.remove()};sp.addEventListener('transitionend',fin,{once:true});setTimeout(fin,900);}
+var fin=function(){sp.hidden=true;sp.remove()};sp.addEventListener('transitionend',function(e){if(e.target===sp)fin()});setTimeout(fin,700);}
 go.addEventListener('click',enter);
+if(matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){var tl=sp.querySelector('.stilt'),raf=0,px=0,py=0;sp.addEventListener('pointermove',function(e){px=e.clientX/innerWidth-.5;py=e.clientY/innerHeight-.5;if(!raf)raf=requestAnimationFrame(function(){raf=0;tl.style.setProperty('--ry',(px*8).toFixed(2)+'deg');tl.style.setProperty('--rx',(-py*6).toFixed(2)+'deg')})})}
 document.addEventListener("keydown",function(e){if(!done&&e.key==="Enter"&&!(e.target.closest&&e.target.closest(".slang"))){e.preventDefault();enter()}});
 go.focus();
 })();
