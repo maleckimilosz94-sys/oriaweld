@@ -541,6 +541,8 @@ if(SB)SB.addEventListener('click',function(e){e.stopPropagation();setOn(!on)});
 /* klik: wszystkie przyciski i linki-przyciski */
 document.addEventListener('click',function(e){var b=e.target.closest('button,.btn,.pws,a[href^="mailto"]');if(!b||b===SB||b===B)return;click()},true);
 /* przewijanie i zmiana slajdow/krokow: bez szumu (decyzja Milosza 10:21) */
+/* powiew tylko przy przyblizaniu/oddalaniu podgladu 3D (zmiana promienia orbity), max co 600 ms */
+(function(){var mv=document.getElementById('d4m');if(!mv)return;var lr=null,lt=0;mv.addEventListener('camera-change',function(e){if(!e.detail||e.detail.source!=='user-interaction'||typeof mv.getCameraOrbit!=='function')return;var r=mv.getCameraOrbit().radius;if(lr===null){lr=r;return}var d=Math.abs(r-lr);if(d<lr*.04)return;lr=r;var n=performance.now();if(n-lt<600)return;lt=n;whoosh(.3,V.whoosh,800,2600)})})();
 document.addEventListener('visibilitychange',function(){if(!ctx)return;if(document.hidden)ctx.suspend();else if(on)ctx.resume()});
 /* jezyk: tooltip = aria-label */
 var oL=window.L;if(typeof oL==='function'){window.L=function(l){oL(l);[B,SB].forEach(function(b){if(b)b.title=b.getAttribute('aria-label')})}}
