@@ -503,8 +503,8 @@ go.focus();
 (function(){
 var KEY='ow_snd',KA='ow_amb',RMq=matchMedia('(prefers-reduced-motion: reduce)');
 var on=false,amb=false;try{on=localStorage.getItem(KEY)==='1';amb=localStorage.getItem(KA)==='1'}catch(e){}
-var ctx=null,master=null,noiseBuf=null,ambN=null,lastScroll=0,lastY=scrollY;
-var V={click:0.016,whoosh:0.012,scroll:0.011,amb:0.010}; /* brzmienie Szklo (preset C_szklo z aplikacji), wersja delikatna */
+var ctx=null,master=null,noiseBuf=null,ambN=null;
+var V={click:0.016,whoosh:0.012,amb:0.010}; /* brzmienie Szklo (preset C_szklo z aplikacji), wersja delikatna */
 function mk(){if(ctx)return ctx;var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;ctx=new AC();master=ctx.createGain();master.gain.value=1;master.connect(ctx.destination);
  var n=ctx.sampleRate,b=ctx.createBuffer(1,n,n),d=b.getChannelData(0),x=12345;for(var i=0;i<n;i++){x=(x*1103515245+12345)&0x7fffffff;d[i]=x/0x3fffffff-1}noiseBuf=b;window.__owCtx=ctx;return ctx}
 function ready(){if(!on||document.hidden)return null;var c=mk();if(c&&c.state==='suspended')c.resume();return c}
@@ -515,8 +515,6 @@ function click(){var c=ready();if(!c)return;var t=c.currentTime+.005,o=c.createO
 /* powiew Szklo: szum pasmowy Q1.4, 800->3200 Hz, miekki atak, z cichym szklanym tonem 880 Hz */
 function whoosh(dur,vol,f0,f1){var c=ready();if(!c)return;var t=c.currentTime+.005,n=noise(t,dur),f=c.createBiquadFilter(),g=c.createGain();f.type='bandpass';f.Q.value=1.4;f.frequency.setValueAtTime(f0,t);f.frequency.exponentialRampToValueAtTime(f1,t+dur*.8);g.gain.setValueAtTime(0.0001,t);g.gain.setTargetAtTime(vol,t,.12*dur);g.gain.setTargetAtTime(0.0001,t+dur*.55,dur*.15);n.connect(f).connect(g).connect(master)}
 function tone(dur){var c=ready();if(!c)return;var t=c.currentTime+.005,q=c.createOscillator(),g=c.createGain();q.type='sine';q.frequency.value=880;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(.0015,t+dur*.4);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);q.connect(g).connect(master);q.start(t);q.stop(t+dur+.05)}
-function change(){whoosh(.45,V.whoosh,800,3200);tone(.6)}
-function scrollS(){whoosh(.22,V.scroll,800,2000)}
 /* ambient Szklo: sinusy 65.4/98/130.8/196/784 Hz, LP 900 Hz, echo 0.45 s */
 function ambStart(){if(ambN||!amb)return;var c=ready();if(!c)return;var t=c.currentTime,g=c.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(V.amb,t+2);var f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=900;g.connect(master);f.connect(g);
  var d=c.createDelay(2),fb=c.createGain();d.delayTime.value=.45;fb.gain.value=.45;f.connect(d);d.connect(fb);fb.connect(d);d.connect(g);
@@ -534,10 +532,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!P.hidden){
 CO.addEventListener('change',function(){setOn(CO.checked)});CA.addEventListener('change',function(){setAmb(CA.checked)});
 if(SB)SB.addEventListener('click',function(e){e.stopPropagation();setOn(!on)});
 /* klik: wszystkie przyciski i linki-przyciski */
-document.addEventListener('click',function(e){var b=e.target.closest('button,.btn,.pws,a[href^="mailto"]');if(!b||b===SB||b===B)return;click();
- if(b.closest('#rDots,#sDots')||/^(rPrev|rNext|sPrev|sNext)$/.test(b.id))change()},true);
-/* przewijanie: tlumione, max co 400 ms */
-addEventListener('scroll',function(){if(!on)return;var n=performance.now(),y=scrollY;if(n-lastScroll<400||Math.abs(y-lastY)<120)return;lastScroll=n;lastY=y;scrollS()},{passive:true});
+document.addEventListener('click',function(e){var b=e.target.closest('button,.btn,.pws,a[href^="mailto"]');if(!b||b===SB||b===B)return;click()},true);
+/* przewijanie i zmiana slajdow/krokow: bez szumu (decyzja Milosza 10:21) */
 document.addEventListener('visibilitychange',function(){if(!ctx)return;if(document.hidden)ctx.suspend();else if(on)ctx.resume()});
 /* jezyk: tooltip = aria-label */
 var oL=window.L;if(typeof oL==='function'){window.L=function(l){oL(l);[B,SB].forEach(function(b){if(b)b.title=b.getAttribute('aria-label')})}}
