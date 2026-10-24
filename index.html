@@ -504,21 +504,24 @@ go.focus();
 var KEY='ow_snd',KA='ow_amb',RMq=matchMedia('(prefers-reduced-motion: reduce)');
 var on=false,amb=false;try{on=localStorage.getItem(KEY)==='1';amb=localStorage.getItem(KA)==='1'}catch(e){}
 var ctx=null,master=null,noiseBuf=null,ambN=null,lastScroll=0,lastY=scrollY;
-var V={click:0.0316,whoosh:0.02,scroll:0.006,amb:0.012}; /* -30 dB klik */
+var V={click:0.016,whoosh:0.012,scroll:0.011,amb:0.010}; /* brzmienie Szklo (preset C_szklo z aplikacji), wersja delikatna */
 function mk(){if(ctx)return ctx;var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;ctx=new AC();master=ctx.createGain();master.gain.value=1;master.connect(ctx.destination);
  var n=ctx.sampleRate,b=ctx.createBuffer(1,n,n),d=b.getChannelData(0),x=12345;for(var i=0;i<n;i++){x=(x*1103515245+12345)&0x7fffffff;d[i]=x/0x3fffffff-1}noiseBuf=b;window.__owCtx=ctx;return ctx}
 function ready(){if(!on||document.hidden)return null;var c=mk();if(c&&c.state==='suspended')c.resume();return c}
-function env(g,t,a,peak,dec){g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(peak,t+a);g.gain.exponentialRampToValueAtTime(0.0001,t+a+dec)}
 function noise(t,dur){var s=ctx.createBufferSource();s.buffer=noiseBuf;s.start(t,Math.random()*.5,dur+.05);return s}
-function click(){var c=ready();if(!c)return;var t=c.currentTime+.005,o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.setValueAtTime(1800,t);o.frequency.exponentialRampToValueAtTime(900,t+.03);env(g,t,.002,V.click,.04);o.connect(g).connect(master);o.start(t);o.stop(t+.06);
- var n=noise(t,.015),f=c.createBiquadFilter(),g2=c.createGain();f.type='highpass';f.frequency.value=3000;env(g2,t,.001,V.click*.35,.012);n.connect(f).connect(g2).connect(master)}
-function whoosh(dur,vol,f0,f1){var c=ready();if(!c)return;var t=c.currentTime+.005,n=noise(t,dur),f=c.createBiquadFilter(),g=c.createGain();f.type='bandpass';f.Q.value=1.2;f.frequency.setValueAtTime(f0,t);f.frequency.exponentialRampToValueAtTime(f1,t+dur);g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(vol,t+dur*.4);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);n.connect(f).connect(g).connect(master)}
-function change(){whoosh(.25,V.whoosh,400,2000)}
-function scrollS(){whoosh(.12,V.scroll,300,900)}
-function ambStart(){if(ambN||!amb)return;var c=ready();if(!c)return;var t=c.currentTime,g=c.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(V.amb,t+2);var f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=400;g.connect(master);f.connect(g);
- var os=[55,82.5,110.3].map(function(fr,i){var o=c.createOscillator();o.type=i?'sine':'triangle';o.frequency.value=fr;var og=c.createGain();og.gain.value=[.6,.3,.12][i];o.connect(og).connect(f);o.start(t);return o});
- var lfo=c.createOscillator(),lg=c.createGain();lfo.frequency.value=.08;lg.gain.value=V.amb*.35;lfo.connect(lg).connect(g.gain);lfo.start(t);os.push(lfo);
- var n=c.createBufferSource();n.buffer=noiseBuf;n.loop=true;var nf=c.createBiquadFilter();nf.type='lowpass';nf.frequency.value=180;var ng=c.createGain();ng.gain.value=.15;n.connect(nf).connect(ng).connect(f);n.start(t);os.push(n);ambN={g:g,os:os}}
+/* klik Szklo: krotki blip 2.2 kHz przez gornoprzepustowy 900 Hz, atak 2 ms, 20 ms */
+function click(){var c=ready();if(!c)return;var t=c.currentTime+.005,o=c.createOscillator(),h=c.createBiquadFilter(),g=c.createGain();o.type='square';o.frequency.setValueAtTime(2200,t);h.type='highpass';h.frequency.value=900;h.Q.value=.5;
+ g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(V.click,t+.002);g.gain.setValueAtTime(V.click,t+.004);g.gain.exponentialRampToValueAtTime(0.0001,t+.02);o.connect(h).connect(g).connect(master);o.start(t);o.stop(t+.03)}
+/* powiew Szklo: szum pasmowy Q1.4, 800->3200 Hz, miekki atak, z cichym szklanym tonem 880 Hz */
+function whoosh(dur,vol,f0,f1){var c=ready();if(!c)return;var t=c.currentTime+.005,n=noise(t,dur),f=c.createBiquadFilter(),g=c.createGain();f.type='bandpass';f.Q.value=1.4;f.frequency.setValueAtTime(f0,t);f.frequency.exponentialRampToValueAtTime(f1,t+dur*.8);g.gain.setValueAtTime(0.0001,t);g.gain.setTargetAtTime(vol,t,.12*dur);g.gain.setTargetAtTime(0.0001,t+dur*.55,dur*.15);n.connect(f).connect(g).connect(master)}
+function tone(dur){var c=ready();if(!c)return;var t=c.currentTime+.005,q=c.createOscillator(),g=c.createGain();q.type='sine';q.frequency.value=880;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(.0015,t+dur*.4);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);q.connect(g).connect(master);q.start(t);q.stop(t+dur+.05)}
+function change(){whoosh(.45,V.whoosh,800,3200);tone(.6)}
+function scrollS(){whoosh(.22,V.scroll,800,2000)}
+/* ambient Szklo: sinusy 65.4/98/130.8/196/784 Hz, LP 900 Hz, echo 0.45 s */
+function ambStart(){if(ambN||!amb)return;var c=ready();if(!c)return;var t=c.currentTime,g=c.createGain();g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(V.amb,t+2);var f=c.createBiquadFilter();f.type='lowpass';f.frequency.value=900;g.connect(master);f.connect(g);
+ var d=c.createDelay(2),fb=c.createGain();d.delayTime.value=.45;fb.gain.value=.45;f.connect(d);d.connect(fb);fb.connect(d);d.connect(g);
+ var G=[.45,.22,.12,.06,.006],os=[];[65.4,98,130.8,196,784].forEach(function(fr,i){var o=c.createOscillator();o.type='sine';o.frequency.value=fr;o.detune.value=i%2?3:-3;var og=c.createGain();og.gain.value=G[i];var l=c.createOscillator(),lg=c.createGain();l.frequency.value=.03+i*.031;lg.gain.value=G[i]*.5;l.connect(lg).connect(og.gain);o.connect(og).connect(f);o.start(t);l.start(t);os.push(o,l)});
+ var n=c.createBufferSource();n.buffer=noiseBuf;n.loop=true;var nf=c.createBiquadFilter();nf.type='lowpass';nf.frequency.value=180;var ng=c.createGain();ng.gain.value=.02;n.connect(nf).connect(ng).connect(f);n.start(t);os.push(n);ambN={g:g,os:os}}
 function ambStop(){if(!ambN||!ctx)return;var a=ambN,t=ctx.currentTime;ambN=null;a.g.gain.cancelScheduledValues(t);a.g.gain.setValueAtTime(a.g.gain.value,t);a.g.gain.linearRampToValueAtTime(0.0001,t+.6);setTimeout(function(){a.os.forEach(function(o){try{o.stop()}catch(e){}});a.g.disconnect()},800)}
 var B=document.getElementById('sndB'),P=document.getElementById('sndP'),CO=document.getElementById('sndOn'),CA=document.getElementById('sndAmb'),SB=document.getElementById('splSnd');
 function ui(){document.documentElement.classList.toggle('snd-on',on);[B,SB].forEach(function(b){if(b)b.setAttribute('aria-pressed',on?'true':'false')});CO.checked=on;CA.checked=amb;CA.disabled=!on}
