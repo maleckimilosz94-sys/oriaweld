@@ -352,7 +352,7 @@ html.spl-on,html.spl-on body{overflow:hidden}
 
 <div class="hero">
   <div class="bg">
-    <img class="on" src="img/hero1.webp" alt="" fetchpriority="high">
+    <img class="on" src="img/hero1.webp" srcset="img/hero1_640.webp 640w, img/hero1_960.webp 960w, img/hero1.webp 1500w" sizes="100vw" alt="" fetchpriority="high" decoding="async">
     <img src="img/hero2.webp" alt="" loading="lazy" decoding="async">
     <img src="img/hero3.webp" alt="" loading="lazy" decoding="async">
     <img src="img/hero4.webp" alt="" loading="lazy" decoding="async">
@@ -552,6 +552,9 @@ var oL=window.L;if(typeof oL==='function'){window.L=function(l){oL(l);[B,SB].for
 if(on){var g1=function(){ready();ambStart();removeEventListener('pointerdown',g1,true);removeEventListener('keydown',g1,true)};addEventListener('pointerdown',g1,true);addEventListener('keydown',g1,true)}
 })();
 </script>
-<script type="module" src="js/model-viewer.min.js"></script>
+<script>/* leniwe model-viewer: laduj gdy sekcja modelu blisko viewportu */
+(function(){var f=document.querySelector('figure.d4v'),d=0;function L(){if(d)return;d=1;var s=document.createElement('script');s.type='module';s.src='js/model-viewer.min.js';document.body.appendChild(s)}
+if(!f||!('IntersectionObserver' in window))return addEventListener('load',L);var o=new IntersectionObserver(function(e){if(e.some(function(x){return x.isIntersecting})){o.disconnect();L()}},{rootMargin:'600px 0px'});o.observe(f)})();
+</script>
 </body>
 </html>
