@@ -322,7 +322,7 @@ html.spl-on,html.spl-on body{overflow:hidden}
 @media (max-width:440px){header{gap:.5rem}header .logo{font-size:.82rem;letter-spacing:.14em}.ctrl{gap:3px}.ctrl button{min-width:36px;padding:0 4px}}
 @media (max-width:380px){header .logo{font-size:.74rem;letter-spacing:.12em}.ctrl button{min-width:34px}}
 </style>
-<link rel="preload" href="fonts/michroma.woff" as="font" type="font/woff" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/michroma.woff" as="font" type="font/woff" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
 </head>
 <body data-t="dark">
 <!-- Ekran startowy. Logo: aby podmienic na SVG Grafiki, ustaw SPLASH_LOGO='img/logo_splash.svg' w skrypcie ponizej. -->
@@ -354,8 +354,8 @@ html.spl-on,html.spl-on body{overflow:hidden}
   <div class="bg">
     <img class="on" src="img/hero1.webp" srcset="img/hero1_640.webp 640w, img/hero1_960.webp 960w, img/hero1.webp 1500w" sizes="100vw" alt="" fetchpriority="high" decoding="async">
     <img src="img/hero2.webp" alt="" loading="lazy" decoding="async">
-    <img src="img/hero3.webp" alt="" loading="lazy" decoding="async">
-    <img src="img/hero4.webp" alt="" loading="lazy" decoding="async">
+    <img data-src="img/hero3.webp" alt="" loading="lazy" decoding="async">
+    <img data-src="img/hero4.webp" alt="" loading="lazy" decoding="async">
   </div>
   <div class="veil"></div>
   <div class="txt">
@@ -462,7 +462,8 @@ function L(l){
 }
 let n=0;
 const im=document.querySelectorAll('.bg img');
-const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!RM)setInterval(()=>{im[n].classList.remove('on');n=(n+1)%im.length;im[n].classList.add('on')},4800);
+const ld=i=>{const e=im[i%im.length];if(e&&e.dataset.src&&!e.src.endsWith(e.dataset.src)){e.src=e.dataset.src;e.removeAttribute('data-src')}};
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;if(!RM)setInterval(()=>{im[n].classList.remove('on');n=(n+1)%im.length;ld(n);im[n].classList.add('on');ld(n+1)},4800);
 function wave(x,y,host){if(RM)return;host=host||document.body;const r=host.getBoundingClientRect();for(let k=0;k<3;k++){const w=document.createElement('i');w.className='wave'+(k===2?' last':'');w.style.left=(x-r.left)+'px';w.style.top=(y-r.top)+'px';w.style.animationDelay=(k*120)+'ms';w.addEventListener('animationend',()=>w.remove());host.appendChild(w)}}
 document.querySelectorAll('.btn').forEach(b=>b.addEventListener('click',e=>{const h=b.closest('.hero,.cta');wave(e.clientX||b.getBoundingClientRect().left+b.offsetWidth/2,e.clientY||b.getBoundingClientRect().top+b.offsetHeight/2,h)}));
 
