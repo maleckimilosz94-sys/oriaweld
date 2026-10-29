@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%2307090c%27/%3E%3Cpath d=%27M18 46L32 14l14 32%27 fill=%27none%27 stroke=%27%2300d4ff%27 stroke-width=%276%27 stroke-linejoin=%27round%27/%3E%3Ccircle cx=%2732%27 cy=%2738%27 r=%275%27 fill=%27%238b5cf6%27/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%2307090c%27/%3E%3Cpath d=%27M18 46L32 14l14 32%27 fill=%27none%27 stroke=%27%2300d4ff%27 stroke-width=%276%27 stroke-linejoin=%27round%27/%3E%3Ccircle cx=%2732%27 cy=%2738%27 r=%275%27 fill=%27%239b74f8%27/%3E%3C/svg%3E">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ORIAWELD SI – rysunek techniczny w model 3D i AR dla spawalni</title>
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <style>
 @font-face{font-family:Michroma;src:url(fonts/michroma.woff) format("woff");font-display:swap}
-:root{--bg:#0b0d14;--bg2:#10141d;--s2:#151a25;--fg:#e6ebf2;--m:#9aa4b4;--a:#22d3ee;--v:#8b5cf6;--c:rgba(16,20,29,.72);--bd:rgba(154,164,180,.16);--bd-a:rgba(34,211,238,.45);--mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sh:0 20px 50px rgba(0,0,0,.45)}
+:root{--bg:#0b0d14;--bg2:#10141d;--s2:#151a25;--fg:#e6ebf2;--m:#9aa4b4;--a:#22d3ee;--v:#9b74f8;--c:rgba(16,20,29,.72);--bd:rgba(154,164,180,.16);--bd-a:rgba(34,211,238,.45);--mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sh:0 20px 50px rgba(0,0,0,.45)}
 [data-t="light"]{--bg:#f7f9fc;--bg2:#ffffff;--s2:#eef2f7;--fg:#0c1117;--m:#3d4756;--a:#007f99;--v:#6d28d9;--c:rgba(255,255,255,.85);--bd:rgba(10,20,30,.12);--bd-a:rgba(0,127,153,.5);--sh:0 16px 40px rgba(20,40,60,.12)}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:72px}
@@ -128,7 +128,7 @@ sec{padding:3.5rem calc(1.1rem + env(safe-area-inset-right)) 3.5rem calc(1.1rem 
 @media(max-width:380px){.rdots button{width:24px}}
 
 /* === Jak to działa – v3 (sekcja kroki). Podmiana ilustracji: zmień src w <figure class="kimg" data-slot="krokN"> (proporcje 2:3, np. kroki_v3/krokN.webp) === */
-#jak.k3{--k-bg:#0b0d14;--k-s1:#10141d;--k-s2:#151a25;--k-tx:#9aa4b4;--k-hd:#e6ebf2;--k-a:#22d3ee;--k-v:#8b5cf6;--k-ln:rgba(154,164,180,.16);--k-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--k-bg);border:1px solid var(--k-ln);border-radius:22px;padding:2.6rem 2rem 2.4rem;position:relative;overflow:hidden}
+#jak.k3{--k-bg:#0b0d14;--k-s1:#10141d;--k-s2:#151a25;--k-tx:#9aa4b4;--k-hd:#e6ebf2;--k-a:#22d3ee;--k-v:#9b74f8;--k-ln:rgba(154,164,180,.16);--k-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--k-bg);border:1px solid var(--k-ln);border-radius:22px;padding:2.6rem 2rem 2.4rem;position:relative;overflow:hidden}
 #jak.k3:before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--k-ln) 1px,transparent 1px),linear-gradient(90deg,var(--k-ln) 1px,transparent 1px);background-size:48px 48px;opacity:.35;-webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 75%)}
 #jak.k3>*{position:relative}
 #jak.k3 .hd h2{font-family:Michroma,system-ui,sans-serif;font-weight:400;letter-spacing:1.5px;color:var(--k-hd)}
@@ -299,7 +299,7 @@ html.spl-on,html.spl-on body{overflow:hidden}
 #spl .slogo .ul{transform-origin:0 50%;animation:sul .6s 1.05s var(--ease,ease) forwards}
 #spl .slogo .si,#spl .slogo .si-box{animation:sfad .3s 1.15s var(--ease,ease) forwards,spls 3.2s 1.6s ease-in-out infinite}
 [data-t="light"] #spl .slogo .si{fill:#6d28d9}[data-t="light"] #spl .slogo .si-box{stroke:#6d28d9}
-#spl .sline{background:#8b5cf6;transform-origin:0 50%;animation:sul .6s 1.05s var(--ease,ease) both;transform:scaleX(0)}
+#spl .sline{background:#9b74f8;transform-origin:0 50%;animation:sul .6s 1.05s var(--ease,ease) both;transform:scaleX(0)}
 @keyframes srise{from{opacity:0;transform:translateY(18px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
 @keyframes spls{0%,100%{opacity:1}50%{opacity:.62}}
 @media (prefers-reduced-motion:reduce){#spl .sline{transform:none}#spl .stilt{transform:none!important}}
